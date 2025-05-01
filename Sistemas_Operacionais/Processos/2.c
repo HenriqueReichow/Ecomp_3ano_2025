@@ -17,15 +17,11 @@ void print_vetor(int *vetor, int len_of_vetor){
     printf("\n");
 }
 
-int _random(int min, int max) {
-    return min + rand() % (max - min + 1);
-}
-
 void somar_vetores(int *vetor_1, int *vetor_2, int len_of_vetor){
     int vetor_resultado[len_of_vetor];
     for (int i = 0; i < len_of_vetor; i++){
-        vetor_1[i] = _random(0, 20);
-        vetor_2[i] = _random(0, 20);
+        vetor_1[i] = rand() % 30;
+        vetor_2[i] = rand() % 30;
         vetor_resultado[i] = vetor_1[i] + vetor_2[i];
     }
     printf("Resultado da soma: ");
@@ -35,8 +31,8 @@ void somar_vetores(int *vetor_1, int *vetor_2, int len_of_vetor){
 void multiplicar_vetores(int *vetor_1, int *vetor_2, int len_of_vetor){
     int vetor_resultado[len_of_vetor];
     for (int i = 0; i < len_of_vetor; i++){
-        vetor_1[i] = _random(0, 20);
-        vetor_2[i] = _random(0, 20);
+        vetor_1[i] = rand() % 30;
+        vetor_2[i] = rand() % 30;
         vetor_resultado[i] = vetor_1[i] * vetor_2[i];
     }
     printf("Resultado da multiplicação: ");
@@ -46,8 +42,8 @@ void multiplicar_vetores(int *vetor_1, int *vetor_2, int len_of_vetor){
 void diminuir_vetores(int *vetor_1, int *vetor_2, int len_of_vetor){
     int vetor_resultado[len_of_vetor];
     for (int i = 0; i < len_of_vetor; i++){
-        vetor_1[i] = _random(0, 20);
-        vetor_2[i] = _random(0, 20);
+        vetor_1[i] = rand() % 30;
+        vetor_2[i] = rand() % 30;
         vetor_resultado[i] = vetor_1[i] - vetor_2[i];
     }
     printf("Resultado da subtração: ");

@@ -9,48 +9,50 @@ Exemplo considerando x = 35: 35, 106, 53, 160, 80, 40, 20, 10, 5, 16, 8, 4, 2, 1
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
-void print_collatz(int id){
-    id = (id%1000) - (id%10) / 10;
-    
-    while (id!=1){
-        if(id % 2 == 0){
-            id = id/2;
+void print_collatz(int pid) {
+    int x = (pid / 10) % 100;
+
+    printf("Processo %d: %d ", pid, x);
+    fflush(stdout);
+
+    while (x != 1) {
+        if (x % 2 == 0) {
+            x = x / 2;
+        } else {
+            x = 3 * x + 1;
         }
-        else{
-            id = 3*x+1;
-        }
-        printf("%i ",id);
+        printf("%d ", x);
+        fflush(stdout);
     }
+    printf("\n");
 }
 
-int main(){
-    pid_t newPid, me, parent, x;
-    parent = getpid()
-
-    int N,status;
+int main() {
+    int N;
     printf("Digite o número de processos: ");
-    scanf("%i",&N);
-    int *listProcess = malloc(N * sizeof(int));
+    scanf("%d", &N);
 
     for (int i = 0; i < N; i++) {
-        vetorProcessos[i] = fork();
-        if (vetorProcessos[i] == 0) {
-            break;
+        pid_t pid = fork();
+
+        if (pid < 0) {
+            perror("Erro ao criar processo");
+            exit(1);
+        }
+
+        if (pid == 0) {
+            int me = getpid();
+            print_collatz(me);
+            exit(0);
         }
     }
 
-    me = getpid()
+    int status;
+    while (waitpid(-1, &status, 0) > 0);
 
-    if (me == parent) {
-        x = waitpid(-1, &status, 0);
-        printf("Finalizado!\n");
-    }
-    else {
-        _collatz(me);
-    }
+    printf("Todos os processos filhos terminaram.\n");
     return 0;
 }
